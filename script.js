@@ -46,7 +46,7 @@ class BloomFilter{
      * Регистрирует элемент исходной последовательности в фильтре
      * @param item Элемент исходной последовательности
      */
-        addItem(item){
+    addItem(item){
         for (let i = 0; i < this.funcCount; i++){
             let index = this.hashString(item, i);
             this.bitArray[index] = 1;
@@ -55,7 +55,7 @@ class BloomFilter{
     /**
      * Проверяет наличие искомого элемента в последовательности
      * @param item Искомый элемент
-     * @returns true - "Возможно присутствует" false - "Отсутствует"
+     * @returns false - "Возможно присутствует", true - "Отсутствует"
      */
     checkItemNotPresented(item){
         for (let i = 0; i < this.funcCount; i++){
@@ -65,3 +65,11 @@ class BloomFilter{
         return false;
     }
 }
+
+// Пример работы с фильтром
+let filter = new BloomFilter(10,3);
+console.log(filter.bitArray); //Поверяем что в массиве пусто
+filter.addItem("Apple"); // Добавляем элемент в коллекцию
+console.log(filter.bitArray); //Поверяем что в массиве обновились данные
+filter.checkItemNotPresented("Apple"); //false - объект возможно есть
+filter.checkItemNotPresented("Pineapple"); //true - объекта нет
